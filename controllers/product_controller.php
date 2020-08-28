@@ -5,6 +5,14 @@ include "models/{$view}_model.php";
 
 
 $get_one_product = get_one_product($product_alias);
+/*
+Перевірка на звернення до неіснуючого товару
+*/
+if(!$get_one_product) {
+    include VIEW . "404.php";
+    exit;
+}
+
 //отримуєм ID категорії
 $category_id = $get_one_product['parent'];
 
@@ -25,4 +33,4 @@ $comments = categories_to_string($comments_tree, 'comments_template.php');
 
 include 'libs/breadcrumbs.php';
 
-include "views/{$view}.php";
+include VIEW . "{$view}.php";

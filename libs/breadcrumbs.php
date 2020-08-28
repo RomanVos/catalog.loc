@@ -5,8 +5,8 @@ $breadcrumbs_array = breadcrumbs($categories, $category_id);
 
 if($breadcrumbs_array){
     $breadcrumbs = "<a href='" .PATH. "'>Головна</a> / ";
-    foreach ($breadcrumbs_array as $category_id => $title){
-        $breadcrumbs .= "<a href='" .PATH. "category/{$category_id}'>{$title}</a> / ";
+    foreach ($breadcrumbs_array as $alias => $title){
+        $breadcrumbs .= "<a href='" .PATH. "category/{$alias}'>{$title}</a> / ";
     }
     if(!isset($get_one_product)){
         $breadcrumbs = rtrim($breadcrumbs, " / ");
@@ -18,3 +18,11 @@ if($breadcrumbs_array){
 }else{
     $breadcrumbs = "<a href='" .PATH. "'>Головна</a> / Каталог";
 }
+
+$breadcrumbs2 = explode(' / ', $breadcrumbs);
+$breadcrumbs_new = null;
+$end = array_pop($breadcrumbs2);
+foreach ($breadcrumbs2 as $item){
+    $breadcrumbs_new .= "<li>{$item} - </li>";
+}
+$breadcrumbs_new .= "<li>{$end}</li>";

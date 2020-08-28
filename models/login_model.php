@@ -15,6 +15,13 @@ function authorization(){
             $row = mysqli_fetch_assoc($res);
             $_SESSION['auth']['user'] = $row['name'];
             $_SESSION['auth']['is_admin'] = $row['is_admin'];
+    //встановлення cookie //якщо потрібно запамятати
+            if(isset($_POST['remember']) && $_POST['remember'] == 'on'){
+              $hash = md5(time() . $login);
+              setcookie('hash', $hash, time() + 60*60*24*7);
+              $query = "UPDATE users SET remember = '$hash' WHERE login = '$login'";
+              mysqli_query($connection, $query);
+            }
         }else{
             $_SESSION['auth']['errors'] = 'Логін або Пароль введені невірно';
         }

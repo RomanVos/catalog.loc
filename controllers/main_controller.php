@@ -9,3 +9,5 @@ $categories_menu = categories_to_string($categories_tree);
 //отримання сторінок меню
 $pages = get_pages();
 
+check_remember();
+

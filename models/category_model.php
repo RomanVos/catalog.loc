@@ -1,5 +1,16 @@
 <?php defined("CATALOG") or die("Access denied");
 
+/*
+ отримання iD по аліасу
+ */
+function get_id($categories, $category_alias){
+    if(!$category_alias) return false;
+    foreach ($categories as $k => $v) {
+        if($v['alias'] == $category_alias) return $k;
+    }
+    return false;
+}
+
 //отримання ID дочірніх категорій
 function cats_id($array, $category_id){
     if(!$category_id) return false;

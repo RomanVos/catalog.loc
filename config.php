@@ -5,7 +5,9 @@ define("DBUSER", "root");
 define("DBPASS", "root");
 define("DB", "catalog");
 define("PATH", "http://catalog.loc/");
-define("PERPAGE", 5);
+define("VIEW", "views/apple/");
+define("PRODUCTIMG", "user_files/products/");
+define("PERPAGE", 6);
 
 $option_perpage = array(5,10,15,20);
 

@@ -3,13 +3,26 @@
 include 'main_controller.php';
 include "models/{$view}_model.php";
 
-if(!isset($category_id)) $category_id = null;
+if(!isset($category_alias) ) $category_alias = null;
+$category_id = get_id($categories, $category_alias);
+
+//if(!isset($category_id)) $category_id = null;
 
 include 'libs/breadcrumbs.php';
 
+/*
+ Перевірка на звернення до неіснуючої категорії
+ */
+if($category_alias && !$category_id) {
+    //$products = $count_pages = null;
+   // include VIEW . "{$view}.php";
+    include VIEW . "404.php";
+    exit;
+}
+
 //ID дочірніх категорій
 $ids = cats_id($categories, $category_id);
-$ids = !$ids ? $category_id : rtrim($ids, ",");
+$ids = !$ids ? $category_id : $ids . $category_id;
 
 /******************Pagination******************/
 
@@ -41,6 +54,6 @@ $pagination = pagination($page, $count_pages);
 
 $products = get_products($ids, $start_pos, $perpage);
 
-include "views/{$view}.php";
+include VIEW . "{$view}.php";
 
 
