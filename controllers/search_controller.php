@@ -11,7 +11,7 @@ if(isset ($_GET['term']) ) {
     /******************Pagination******************/
 
 //кількість товарів на сторінку
-    $perpage = PERPAGE;
+    $perpage = $options['pagination'];
 
 //загальна кількість товарів
     $count_goods = count_search();
@@ -43,4 +43,4 @@ if(isset ($_GET['term']) ) {
 $breadcrumbs = "<a href='" . PATH . "'>Головна</a> / <li>Результати пошуку</li>";
 
 
-include VIEW . "{$view}.php";
+include "views/{$options['theme']}/{$view}.php";

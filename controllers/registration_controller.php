@@ -12,6 +12,6 @@ if(isset($_POST['reg'])) {
     redirect();
 }
 
-$breadcrumbs = "<a href='" . PATH . "'>Головна</a> / Реєстрація";
+$breadcrumbs = "<li><a href='" . PATH . "'>Головна</a></li> / <li>Реєстрація</li>";
 
-include VIEW . "{$view}.php";
+include "views/{$options['theme']}/{$view}.php";

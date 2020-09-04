@@ -4,10 +4,10 @@ define("DBHOST", "localhost");
 define("DBUSER", "root");
 define("DBPASS", "root");
 define("DB", "catalog");
-define("PATH", "http://catalog.loc/");
-define("VIEW", "views/apple/");
+//define("PATH", "http://catalog.loc/");
+//define("VIEW", "views/apple/");
 define("PRODUCTIMG", "user_files/products/");
-define("PERPAGE", 6);
+//define("PERPAGE", 6);
 
 $option_perpage = array(5,10,15,20);
 

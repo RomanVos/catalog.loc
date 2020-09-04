@@ -16,7 +16,8 @@ include 'libs/breadcrumbs.php';
 if($category_alias && !$category_id) {
     //$products = $count_pages = null;
    // include VIEW . "{$view}.php";
-    include VIEW . "404.php";
+    header("HTTP/1.1 404 Not Found");
+    include "views/{$options['theme']}/404.php";
     exit;
 }
 
@@ -27,7 +28,7 @@ $ids = !$ids ? $category_id : $ids . $category_id;
 /******************Pagination******************/
 
 //кількість товарів на сторінку
-$perpage = ( isset($_COOKIE['per_page']) && (int)$_COOKIE['per_page']) ? $_COOKIE['per_page'] : PERPAGE;
+$perpage = ( isset($_COOKIE['per_page']) && (int)$_COOKIE['per_page']) ? $_COOKIE['per_page'] : $options['pagination'];
 
 //загальна кількість товарів
 $count_goods = get_count_goods($ids);
@@ -54,6 +55,5 @@ $pagination = pagination($page, $count_pages);
 
 $products = get_products($ids, $start_pos, $perpage);
 
-include VIEW . "{$view}.php";
-
+include "views/{$options['theme']}/{$view}.php";
 

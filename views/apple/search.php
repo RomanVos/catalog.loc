@@ -19,8 +19,8 @@
                 <img src="<?=PATH . PRODUCTIMG . $product['image']?>" alt="test" />
             </div>
             <p class="price">Ціна: <span><?=$product['price']?></span> $</p>
-            <p class="views"><img align="center"  src="<?=PATH.VIEW?>img/views.jpg" alt="test" /> <span>680</span></p>
-            <p class="comments"><img align="center" src="<?=PATH.VIEW?>img/comments.jpg" alt="" /> <span>61</span></p>
+            <p class="views"><img align="center"  src="<?=$theme?>img/views.jpg" alt="test" /> <span>680</span></p>
+            <p class="comments"><img align="center" src="<?=$theme?>img/comments.jpg" alt="" /> <span>61</span></p>
             <p class="permalink"><a href="<?=PATH?>product/<?=$product['alias']?>">детальніше</a></p>
         </div> <!-- class="product" -->
 

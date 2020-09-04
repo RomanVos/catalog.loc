@@ -6,15 +6,26 @@ function access_field() {
     $val = trim(mysqli_real_escape_string($connection, $_POST['val']));
     $field = $_POST['dataField'];
 
-    if(!in_array($field, $fields)) {
-        return 'no';
+    if(!in_array($field, $fields)){
+        $res = array('answer' => 'no', 'info' => 'Помилка!');
+        return json_encode($res);
     }
+
+    if( $field == 'email' && !empty($val) ){
+        if(!preg_match("#^\w+@\w+\.\w+$#i", $val)){
+            $res = array('answer' => 'no', 'info' => "Email невідповідного формату");
+            return json_encode($res);
+        }
+    }
+
     $query = "SELECT id FROM users WHERE $field = '$val'";
     $res = mysqli_query($connection, $query);
     if(mysqli_num_rows($res) > 0){
-        return "no";
+        $res = array('answer' => 'no', 'info' => "Виберіть інший $field");
+        return json_encode($res);
     }else{
-        return "yes";
+        $res = array('answer' => 'yes');
+        return json_encode($res);
     }
 }
 
@@ -24,6 +35,7 @@ function registration() {
     $fields = array('login' => 'Логін', 'email' => 'Email');
     $login = trim($_POST['login_reg']);
     $password = trim($_POST['password_reg']);
+    $password2 = trim($_POST['password_reg2']);
     $name = trim($_POST['name_reg']);
     $email = trim($_POST['email_reg']);
     $post = array($login, $email);
@@ -32,10 +44,18 @@ function registration() {
     if(empty($password)) $errors .= '<li>Не введений Пароль</li>';
     if(empty($name)) $errors .= '<li>Не введений Ім\'я</li>';
     if(empty($email)) $errors .= '<li>Не введений Email</li>';
+    //валідація email
+    if( !empty($email) ){
+        if(!preg_match("#^\w+@\w+\.\w+$#i", $email)){
+            $errors .= '<li>Email невідповідного формату</li>';
+        }
+    }
+
+    if($password != $password2) $errors .= '<li>Паролі не співпадають</li>';
 
     if(!empty($errors)){
         // не заповнені обовязкові поля
-        $_SESSION['reg']['errors']  = "Не заповнені обовязкові поля: <ul>{$errors}</ul>";
+        $_SESSION['reg']['errors']  = "Помилка реєстрації: <ul>{$errors}</ul>";
         return;
     }
     $login = mysqli_real_escape_string($connection, $login);

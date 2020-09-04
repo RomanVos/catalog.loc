@@ -5,6 +5,39 @@ function print_arr($array){
     echo "<pre>" . print_r($array, true) . "</pre>";
 }
 
+function get_options_use(){
+    global $connection;
+    $query = "SELECT * FROM options";
+    $res = mysqli_query($connection, $query);
+    while( $row = mysqli_fetch_assoc($res)) {
+        $options[$row['title']] = $row['value'];
+    }
+    return $options;
+}
+
+/**
+ * cookie перевірка авторизації
+ **/
+function check_remember(){
+    // якщо користувач авторизований - виходим
+    if( isset( $_SESSION['auth']['user'] ) ) return;
+    // якщо користувач не запамятовувався
+    if( !isset($_COOKIE['hash']) ) return;
+
+    global $connection;
+    $hash = mysqli_real_escape_string($connection, $_COOKIE['hash']);
+    $query = "SELECT name, is_admin FROM users WHERE remember = '$hash'";
+    $res = mysqli_query($connection, $query);
+    if(mysqli_num_rows($res) == 1){
+        $row = mysqli_fetch_assoc($res);
+        $_SESSION['auth']['user'] = $row['name'];
+        $_SESSION['auth']['is_admin'] = $row['is_admin'];
+    }else{
+        setcookie('hash', '', time() - 3600);
+    }
+}
+
+
 function redirect($http = false){
     if($http) $redirect = $http;
     else $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
@@ -101,32 +134,32 @@ function pagination($page, $count_pages, $modrew = true)
         }
     }
 
-    if ($page > 1) {
-        $back = "<a class='nav-link' href='{$uri}page=" . ($page - 1) . "'>&lt;</a>";
+    if( $page > 1 ){
+        $back = "<li><a class='nav-link' href='{$uri}page=" .($page-1). "'>Назад</a></li>";
     }
-    if ($page < $count_pages) {
-        $forward = "<a class='nav-link' href='{$uri}page=" . ($page + 1) . "'>&gt;</a>";
+    if( $page < $count_pages ){
+        $forward = "<li><a class='nav-link' href='{$uri}page=" .($page+1). "'>Вперед</a></li>";
     }
-    if ($page > 3) {
-        $startpage = "<a class='nav-link' href='{$uri}page=1'>&laquo;</a>";
+    if( $page > 3 ){
+        $startpage = "<li><a class='nav-link' href='{$uri}page=1'>На початок</a></li>";
     }
-    if ($page < ($count_pages - 2)) {
-        $endpage = "<a class='nav-link' href='{$uri}page={$count_pages}'>&raquo;</a>";
+    if( $page < ($count_pages - 2) ){
+        $endpage = "<li><a class='nav-link' href='{$uri}page={$count_pages}'>В кінець</a></li>";
     }
-    if ($page - 2 > 0) {
-        $page2left = "<a class='nav-link' href='{$uri}page=" . ($page - 2) . "'>" . ($page - 2) . "</a>";
+    if( $page - 2 > 0 ){
+        $page2left = "<li><a class='nav-link' href='{$uri}page=" .($page-2). "'>" .($page-2). "</a></li>";
     }
-    if ($page - 2 > 0) {
-        $page1left = "<a class='nav-link' href='{$uri}page=" . ($page - 1) . "'>" . ($page - 1) . "</a>";
+    if( $page - 1 > 0 ){
+        $page1left = "<li><a class='nav-link' href='{$uri}page=" .($page-1). "'>" .($page-1). "</a></li>";
     }
-    if ($page + 1 <= ($count_pages)) {
-        $page1right = "<a class='nav-link' href='{$uri}page=" . ($page + 1) . "'>" . ($page + 1) . "</a>";
+    if( $page + 1 <= $count_pages ){
+        $page1right = "<li><a class='nav-link' href='{$uri}page=" .($page+1). "'>" .($page+1). "</a></li>";
     }
-    if ($page + 2 <= ($count_pages)) {
-        $page2right = "<a class=nav-link href='{$uri}page=" . ($page + 2) . "'>" . ($page + 2) . "</a>";
+    if( $page + 2 <= $count_pages ){
+        $page2right = "<li><a class='nav-link' href='{$uri}page=" .($page+2). "'>" .($page+2). "</a></li>";
     }
 
-    return $startpage . $back . $page2left . $page1left . '<a class="nav-active">' . $page . '</a>' . $page1right . $page2right . $forward . $endpage;
+    return $startpage.$back.$page2left.$page1left.'<li class="active-page">'.$page.'</li>'.$page1right.$page2right.$forward.$endpage;
 }
 
 //хлібні крошки
@@ -137,7 +170,7 @@ function breadcrumbs($array, $category_id){
     $breadcrumbs_array = array();
     for($i = 0; $i < $count; $i++){
         if( isset($array[$category_id])) {
-            $breadcrumbs_array[$array[$category_id]['id']] = $array[$category_id]['title'];
+            $breadcrumbs_array[$array[$category_id]['alias']] = $array[$category_id]['title'];
             $category_id = $array[$category_id]['parent'];
         }else break;
     }

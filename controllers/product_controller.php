@@ -9,7 +9,8 @@ $get_one_product = get_one_product($product_alias);
 Перевірка на звернення до неіснуючого товару
 */
 if(!$get_one_product) {
-    include VIEW . "404.php";
+    header("HTTP/1.1 404 Not Found");
+    include "views/{$options['theme']}/404.php";
     exit;
 }
 
@@ -33,4 +34,4 @@ $comments = categories_to_string($comments_tree, 'comments_template.php');
 
 include 'libs/breadcrumbs.php';
 
-include VIEW . "{$view}.php";
+include "views/{$options['theme']}/{$view}.php";

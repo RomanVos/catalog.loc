@@ -6,11 +6,12 @@ include "models/{$view}_model.php";
 $page = get_one_page($page_alias);
 
 if(!$page){
-    include VIEW . '404.php';
+    header("HTTP/1.1 404 Not Found");
+    include "views/{$options['theme']}/404.php";
     exit;
 }
 
 $breadcrumbs = "<a href='" . PATH . "'>Головна</a> / {$page['title']}";
 
 
-include VIEW . "{$view}.php";
+include "views/{$options['theme']}/{$view}.php";
