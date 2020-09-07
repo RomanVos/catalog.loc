@@ -23,6 +23,7 @@ $routes = [
     ['url' => '#^category/(?P<category_alias>[a-z0-9-]+)#i', 'view' => 'category'],
     ['url' => '#^category#', 'view' => 'category'],
     ['url' => '#^edit-product/(?P<product_id>[a-z0-9-]+)|^edit-product#i', 'view' => 'edit_product'],
+    ['url' => '#^upload#i', 'view' => 'upload'],
 ];
 
 foreach ($routes as $route) {

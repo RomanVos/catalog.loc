@@ -44,7 +44,11 @@ function edit_product(){
     }
 
     if(isset($alias)){
-        $inc = ", alias = '{$alias}'";
+        $inc .= ", alias = '{$alias}'";
+    }
+    if( !empty($_SESSION['file'])){
+        $inc .= ", image = '{$_SESSION['file']}'";
+        unset($_SESSION['file']);
     }
 
     $query = "UPDATE products SET title = '{$data['title']}', price = '{$data['price']}', content = '{$data['content']}' $inc WHERE id = {$data['id']} ";

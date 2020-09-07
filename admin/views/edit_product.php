@@ -26,11 +26,21 @@
                     <option>5</option>
                 </select>
             </div>
+
+            <div class="preview">
+                <img src="<?=SITE .'/'. PRODUCTIMG. $get_one_product['image']?>" alt="" width="150">
+            </div>
             <div class="form-group col-md-10">
-                <label for="content">Опис:</label>
+                <label for="content">Змінити зображення товару:</label>
+                <div id="upload" class="upload"></div>
+            </div>
+
+            <div class="form-group col-md-10">
+                <label for="content">Опис товару:</label>
                 <textarea class="form-control editor" name="content" id="content"><?=$get_one_product['content']?></textarea>
             </div>
             <div class="clearfix"></div>
+
             <div class="col-md-10 text-right">
                 <input type="hidden" name="id" value="<?=$get_one_product['id']?>">
                 <input type="hidden" name="product_title" value="<?=$get_one_product['title']?>">

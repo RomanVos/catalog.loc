@@ -21,6 +21,7 @@
 <script src="<?=PATH?>views/scripts/jquery.cookie.js"></script>
 <script src="<?=PATH?>views/scripts/jquery.accordion.js"></script>
 <script src="<?=PATH?>views/bootstrap/js/bootstrap.min.js"></script>
+<script src="<?=PATH?>views/dropzone/dropzone.js"></script>
 <script src="<?=PATH?>views/scripts/script.js"></script>
 
 </body>

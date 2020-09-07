@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Каталог продукції apple</title>
     <link rel="stylesheet" href="<?=PATH?>views/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?=PATH?>views/dropzone/dropzone.css" />
     <link rel="stylesheet" href="<?=PATH?>views/css/style.css" />
 </head>
 <body>

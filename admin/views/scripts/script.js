@@ -87,5 +87,36 @@ $(function(){
         });
     }
 
+    var myDropzone = new Dropzone('div#upload', {
+        paramName: "file",
+        url: path + "upload",
+        maxFiles: 1,
+        acceptedFiles: '.jpg, .gif, .png, .svg',
+        success: function (file, responce){
+            /*console.log(file);
+           console.log(responce);*/
+            var url = file.dataURL,
+                res = JSON.parse(responce);
+            if(res.answer == 'error') {
+                //this.defaultOptions.error(file, res.error);
+                this.removeFile(file);
+                alert(res.error);
+            }else{
+                this.defaultOptions.success(file);
+                //this.removeFile(file);
+                //$('.preview').append('<img src="' + url + '" width="120">');
+            }
+        },
+        init: function(){
+            $(this.element).html(this.options.dictDefaultMessage);
+        },
+        processing: function()
+        {
+            $('.dz-message').remove();
+        },
+        dictDefaultMessage: '<div class="dz-message">Натисніть сюди або ' +
+                            'перетягніть сюди файли для завантаження</div>',
+        dictMaxFilesExceeded: 'Досягнутий ліміт файлів для завантажування - дозволено {{maxFiles}}'
+    });
 
 });

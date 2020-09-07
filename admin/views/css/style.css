@@ -910,3 +910,6 @@ tr:hover{
 .del{
     cursor: pointer;
 }
+.preview{
+    padding-left: 20px;
+}
