@@ -4,18 +4,18 @@ session_start();
 include 'config.php';
 
 //роутінг
-$routes = array(
-    array('url' => '#^$|^\?#', 'view' => 'category'),
-    array('url' => '#^product/(?P<product_alias>[a-z0-9-]+)#i', 'view' => 'product'),
-    array('url' => '#^category/(?P<category_alias>[a-z0-9-]+)#i', 'view' => 'category'),
-    array('url' => '#^login#i', 'view' => 'login'),
-    array('url' => '#^logout#i', 'view' => 'logout'),
-    array('url' => '#^forgot#i', 'view' => 'forgot'),
-    array('url' => '#^registration#i', 'view' => 'registration'),
-    array('url' => '#^add_comment#i', 'view' => 'add_comment'),
-    array('url' => '#^page/(?P<page_alias>[a-z0-9-]+)#i', 'view' => 'page'),
-    array('url' => '#^search#i', 'view' => 'search')
-);
+$routes = [
+    ['url' => '#^$|^\?#', 'view' => 'category'],
+    ['url' => '#^product/(?P<product_alias>[a-z0-9-]+)#i', 'view' => 'product'],
+    ['url' => '#^category/(?P<category_alias>[a-z0-9-]+)#i', 'view' => 'category'],
+    ['url' => '#^login#i', 'view' => 'login'],
+    ['url' => '#^logout#i', 'view' => 'logout'],
+    ['url' => '#^forgot#i', 'view' => 'forgot'],
+    ['url' => '#^registration#i', 'view' => 'registration'],
+    ['url' => '#^add_comment#i', 'view' => 'add_comment'],
+    ['url' => '#^page/(?P<page_alias>[a-z0-9-]+)#i', 'view' => 'page'],
+    ['url' => '#^search#i', 'view' => 'search']
+];
 
 // http://catalog.loc/site/index.php
 $app_path = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
